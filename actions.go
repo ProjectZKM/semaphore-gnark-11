@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"os"
 
 	groth16 "github.com/consensys/gnark/backend/groth16/bn254"
@@ -104,6 +105,8 @@ func p2c(cCtx *cli.Context) error {
 	}
 	phase2.WriteTo(outputFile)
 
+	fmt.Printf("Contribution hash: 0x%x\n", phase2.Hash)
+
 	return nil
 }
 
@@ -129,6 +132,8 @@ func p2v(cCtx *cli.Context) error {
 	origin.ReadFrom(originFile)
 
 	mpcsetup.VerifyPhase2(origin, input)
+
+	fmt.Printf("Contribution hash: 0x%x\n", input.Hash)
 
 	return nil
 }
